@@ -1,3 +1,17 @@
 class Seat < ApplicationRecord
-    validates :seat_no,presence:true,uniqueness:true,numericality: {only_integer: true, greater_than: 0, less_than_or_equal_to: 50}
+    validates :seat_no,presence:true,uniqueness:true
+    def book_seat!
+        update(booked:true) if available?
+    end
+    def cancel_seat!
+        update(booked:false) if booked?
+    end
+    def booked?
+        booked
+    end
+    def available?
+        !booked
+    end
+    def status?
+        booked? "Booked": "Available"
 end
