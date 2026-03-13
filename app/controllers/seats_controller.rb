@@ -6,7 +6,7 @@ class SeatsController < ApplicationController
             seat.book_seat!
             render json: { message: "Seat booked successfully" }
         else
-            render json: { message: "Seat not available" }
+            render json: { message: "Seat is already Booked" }
         end
     end
 
@@ -19,5 +19,18 @@ class SeatsController < ApplicationController
         else
             render json: { message: "Seat not booked" }
         end
+    end
+
+    def status
+        seats = Seat.all
+
+        result = seats.map do |seat|
+            {
+            seat_no: seat.seat_no,
+            status: seat.status
+            }
+        end
+        
+        render json: result
     end
 end
