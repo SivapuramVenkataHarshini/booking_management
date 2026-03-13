@@ -12,6 +12,6 @@ class Seat < ApplicationRecord
     def available?
         !booked
     end
-    def status?
+    def status
         booked? "Booked": "Available"
 end
